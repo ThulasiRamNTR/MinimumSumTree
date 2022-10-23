@@ -1,0 +1,19 @@
+minimumSum = 0
+    inorderList = [int(i) for i in leafNodesInorderInput.strip().split()]
+    while len(inorderList) > 1:
+        isMinProductSet = False
+        minElementIndex = -1
+
+        for i in range(1, len(inorderList),1):
+            if not isMinProductSet:
+                minElementIndex = i-1 if inorderList[i-1] < inorderList[i] else i
+                minProduct = inorderList[i-1] * inorderList[i]
+                isMinProductSet = True 
+            elif minProduct > (inorderList[i-1] * inorderList[i]):
+                minElementIndex = i-1 if inorderList[i-1] < inorderList[i] else i
+                minProduct = inorderList[i-1] * inorderList[i]
+
+        minimumSum += minProduct
+        inorderList = inorderList[minElementIndex::]
+    #should return the minimum sum
+    return minimumSum 
