@@ -3,7 +3,6 @@
 #read the input file
 #inputPS01Q1.txt
 import os
-import sys
 
 def minimumSumTreeFromLeafNodes(leafNodesInorderInput): 
     result = 0
@@ -15,26 +14,30 @@ def minimumSumTreeFromLeafNodes(leafNodesInorderInput):
             result += min(inorderList[min_Index - 1],inorderList[min_Index + 1]) * inorderList[min_Index]
         else:
             result += inorderList[1 if min_Index == 0 else min_Index - 1] * inorderList[min_Index]
+        result += inorderList[min_Index]
         inorderList.pop(min_Index)
-
+    
+    result += inorderList[0]
     return result
-
 
 print("Minimum Sum Tree problem solution")
 print("=================================")
 
 #Preparing and getting inputFilePath, inputFile, and inputContent for processing
-print("Enter the filePath of the input file: ")
-print("Note: Simply press enter to use the current directory path")
-inputFilePath = input().strip()
-if len(inputFilePath) == 0:
+print("The input file is expected to be in the current directory: ")
+print("Simply press enter to continue")
+outputFilePath = input().strip()
+try:
     inputFilePath = os.path.join(os.getcwd(), "inputPS01Q1.txt")
-inputFile = open(inputFilePath,"r")
-inputlines = inputFile.readlines()
+    inputFile = open(inputFilePath,"r")
+    inputlines = inputFile.readlines()
+except:
+    print("No input file is found or error while reading the input file")
+    exit()
 
 #Preparing the output file for processing
-print("Enter the filePath of the output file where results should be witten into: ")
-print("Note: Simply press enter to use the current directory path")
+print("The output would be written into outputPS01Q1.txt in the current directory: ")
+print("Simply press enter to continue")
 outputFilePath = input().strip()
 if len(outputFilePath) == 0:
     outputFilePath = os.path.join(os.getcwd(), "outputPS01Q1.txt")
@@ -50,9 +53,10 @@ for inputline in inputlines:
     minSum = minimumSumTreeFromLeafNodes(inputline)
 
     #for each ouput line, write into the output file
-    #(outputPS01Q1.txt
+    #outputPS01Q1.txt
     outputFile.write(str(minSum) + "\n")
 
+print("The problem has been executed and the output is written into outputPS01Q1.txt in the current directory/root folder")
 inputFile.close()
 outputFile.close()
 
